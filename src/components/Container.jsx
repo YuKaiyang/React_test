@@ -1,11 +1,7 @@
 import React from 'react'
 import SearchBar from './SearchBar'
 import ProductTable from './ProductTable'
-import ProductCategoryRow from './ProductCategoryRow'
-import ProductRow from './ProductRow'
 
-const title = ['Name', 'Price']
-const category = ["Sporting Goods", 'Electronics']
 const data = [
   { category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football" },
   { category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball" },
@@ -36,28 +32,6 @@ class Container extends React.Component {
     })
   }
 
-  renderList(category) {
-    const { input, checked } = this.state
-    let lists = [...data]
-
-    if (input) {
-      lists = data.filter(v => {
-        return v.name.toLowerCase().match(input)
-      })
-    }
-    if (checked) {
-      lists = lists.filter(v => {
-        return v.stocked === checked
-      })
-    }
-    lists = lists.filter(v => {
-      return v.category === category
-    })
-    return lists.map(v => {
-      return <ProductRow key={v.name} name={v.name} price={v.price} stocked={v.stocked} />
-    })
-  }
-
   render() {
     return (
       <div>
@@ -67,12 +41,7 @@ class Container extends React.Component {
         >
           Only show products in stock
         </SearchBar>
-        <ProductTable title={title} >
-          <ProductCategoryRow title={category[0]} />
-          {this.renderList(category[0])}
-          <ProductCategoryRow title={category[1]} />
-          {this.renderList(category[1])}
-        </ProductTable>
+        <ProductTable products={data} filterText={this.state.input} inStockOnly={this.state.checked} />
       </div>
     )
   }

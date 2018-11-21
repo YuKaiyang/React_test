@@ -21,6 +21,10 @@
   font-weight: 600;
 }
 
+.rowTitle {
+  padding-left: 30px;
+}
+
 span:first-child {
   display: inline-block;
   width: 100px;
